@@ -77,14 +77,7 @@ public class CarSelection : MonoBehaviour
     {
         SceneManager.LoadScene(2); 
     }
-
-
-
-
-
-
-
-    }
+}
 
 
 

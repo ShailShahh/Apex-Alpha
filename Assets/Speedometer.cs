@@ -6,38 +6,28 @@ using TMPro;  // Adding this as using TextMeshPro
 
 public class Speedometer : MonoBehaviour
 {
-    public PlayercontrolerShail RR; // Reference to player controller script
+    public PlayercontrolerShail RR; // reference to player controller script
     public TextMeshProUGUI speedText;
 
-    private float startposition = 219.28f, endposition = -40f;
-    private float desiredposition;
-
     [Header("Vehicle Speed Settings")]
-    public float vehicleSpeed; // To be set in Inspector
-    public float maxSpeed = 60f; // Set the maximum speed in KPH
+    public float vehicleSpeed; //  set in Inspector
+    public float maxSpeed = 90f; // set maximum speed in KPH
 
     // Start is called before the first frame update
-    
+
     private void FixedUpdate()
     {
-        // Get the vehicle speed from player controller shail
+        // Input validity check using TryParse for vehicle speed
         vehicleSpeed = RR.KPH;
+        string speedStr = vehicleSpeed.ToString();
 
-        // Update the needle's position based on the speed
-        updateneedle();
-
-        // Update the digital speed readout
-        if (speedText != null)
+        if (float.TryParse(speedStr, out _))
         {
-            speedText.text = Mathf.RoundToInt(vehicleSpeed).ToString() + " km/h";
+            // Update digital speedo
+            if (speedText != null)
+            {
+                speedText.text = Mathf.RoundToInt(vehicleSpeed).ToString() + " km/h";
+            }
         }
-    }
-
-    public void updateneedle()
-    {
-        // Calculate the position of the needle based on the speed
-        desiredposition = startposition - endposition;
-        float temp = vehicleSpeed / maxSpeed; // Normalize the speed based on maxSpeed
-        
     }
 }
